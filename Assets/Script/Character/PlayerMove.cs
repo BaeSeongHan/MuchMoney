@@ -9,88 +9,58 @@ public class PlayerMove : MonoBehaviour
 {
     public float playerSpeed = 10.0f;  //플레이어 스피드
     public float playerRotateSpeed = 10.0f;  //플레이어 회전 스피드
-
     public Vector3 nowVector;     //현재 위치벡터
     public Vector3 moveVector;    //이동할 위치벡터
     public Vector3 targetVector;  //보고있는 방향의 위치벡터
-
     private Quaternion startingRotation;   //플레이어가 가지고 있는 회전 값의 쿼터니언
-
     //------------------------------------------------------
-
     public Transform lookObj; //보고있는 방향의 오브젝트 넣는 곳 
     public Transform L_Obj; //선택한 오브젝트 넣는 곳 
-
     public GameObject[] allObj; //모든오브젝트 넣을 배열
-
     //------------------------------------------------------
-
     public int actionPoint; //행동력
     public int coinCount; //코인 먹어야 하는 수 -> 바꿔야함
     public int minActionPoint; //최소 보유 행동력
     public int LimitTimer;
     public GameObject timer; //시간 오브젝트 가져올거
-
-
-
     public int coin_Count; //스테이지에 있는 코인 수
-
     public GameObject[] coin; //코인 오브젝트
     public int nowCoinCount; //현재 먹은 코인 카운트
-
-
     //------------------------------------------------------
-
     public GameObject stayBlook;  //현재 서있는 블럭
     public GameObject lookBlook;  //보고있는 방향의 블럭
-
     //------------------------------------------------------
     public bool moveBool; //이동 가능한지 불가능한지 판별
     //------------------------------------------------------
-
     public GameObject inventory; //인벤토리
-
     public GameObject endUI; //끝나는창 UI
     //------------------------------------------------------
-
     private Animator animator; //캐릭터 애니메이터 관리?
     //------------------------------------------------------
-
     public Transform goal; //골인지점 찾기
-
     public GameObject Map; //맵 데이터 가져올 곳
-
     public GameObject StageText; //스테이지 텍스트 가져올거
     public GameObject FAIL; //스테이지 텍스트 가져올거
     public GameObject NextButton; //다음스테이지 버튼 가져올거
-
-
     public bool isAtk = false; //공격을 받았는지
     public bool isEnd = false; //끝났는지 알려주기 
-
     public GameObject hpbar;
-
-    int llll; //보는방향 인트
-
-
-
-
+    int lookInt; //보는방향 인트 -> 포탈이동시 필요해서 추가
     //------------------------------------------------------
     public ParticleSystem pRock; //파티클 넣을거
     public ParticleSystem pWood;
     public GameObject moveParticle; //움직일때 파티클 생성
-
-    public bool moveParticleTrue = true; // 움직이는 파티클 이미 켰는지 아닌지 판단
-                                         //------------------------------------------------------
-
-
+    public bool moveParticleTrue = true; // 움직이는 파티클 이미 켰는지 아닌지 판단                  
     //------------------------------------------------------
-
     public GameObject objStateText; //오브젝트 상태 받아올 텍스트
-
-
     //------------------------------------------------------
+    public Text playerText; //플레이어 행동력 text
 
+    public Sprite imageIron; //철 이미지
+    public Sprite imageWood; //나무 이미지
+    public GameObject[] potal;
+    public bool isPotal = false; //순간이동 했는지 안했는지 알려주기(지금 막 순간이동 했는지 안했는지 체크)
+    Vector3 nowPosition; //현재 캐릭터 포지션
     // Start is called before the first frame update
     void Start()
     {
@@ -144,7 +114,7 @@ public class PlayerMove : MonoBehaviour
         Find_Obj();
         Obj_Ui();
         Player_Ui();
-
+        Potal(); //포탈 블록을  밟았을 때 실행
 
         if (isEnd == false)
         {
@@ -152,17 +122,8 @@ public class PlayerMove : MonoBehaviour
             EndGame();//게임 끝나는지 판단
         }
         
-
-
-        Potal();
-
-
-
         transform.position = Vector3.MoveTowards(transform.position, moveVector, playerSpeed * Time.deltaTime);
     }
-
-    
-
 
     void Look_Player() //플레이어가 보는 방향 설정
     {
@@ -173,7 +134,7 @@ public class PlayerMove : MonoBehaviour
                 SoundManger.instance.TurnSound();
                 StopAllCoroutines();
                 StartCoroutine(Rotate(-90));
-                llll = 1;
+                lookInt = 1;
                 targetVector = new Vector3(transform.position.x, transform.position.y, transform.position.z + 1);
             }
 
@@ -182,7 +143,7 @@ public class PlayerMove : MonoBehaviour
                 SoundManger.instance.TurnSound();
                 StopAllCoroutines();
                 StartCoroutine(Rotate(0));
-                llll = 2;
+                lookInt = 2;
                 targetVector = new Vector3(transform.position.x + 1, transform.position.y, transform.position.z);
             }
 
@@ -192,7 +153,7 @@ public class PlayerMove : MonoBehaviour
                 SoundManger.instance.TurnSound();
                 StopAllCoroutines();
                 StartCoroutine(Rotate(-180));
-                llll = 3;
+                lookInt = 3;
                 targetVector = new Vector3(transform.position.x - 1, transform.position.y, transform.position.z);
             }
 
@@ -202,13 +163,11 @@ public class PlayerMove : MonoBehaviour
                 SoundManger.instance.TurnSound();
                 StopAllCoroutines();
                 StartCoroutine(Rotate(90));
-                llll = 4;
+                lookInt = 4;
                 targetVector = new Vector3(transform.position.x, transform.position.y, transform.position.z - 1);
             }
         }
     }
-
-    //회전 코루틴
     IEnumerator Rotate(float rotationAmount)
     {
         Quaternion finalRotation = Quaternion.Euler(0, rotationAmount, 0) * startingRotation;
@@ -218,13 +177,9 @@ public class PlayerMove : MonoBehaviour
             transform.rotation = Quaternion.Lerp(transform.rotation, finalRotation, Time.deltaTime * playerRotateSpeed);
             yield return 0;
         }
-    }
-
-
-
+    } //회전 코루틴
     void Move_Player() //스페이스바 눌렀을때 보는 방향으로 한칸 이동
     {
-
         if (moveBool == true)
         {
             if (Input.GetKeyDown(KeyCode.Space))
@@ -236,12 +191,9 @@ public class PlayerMove : MonoBehaviour
                     Instantiate(moveParticle, gameObject.transform.position, moveParticle.transform.rotation);
                     moveParticleTrue = false;
                 }
-                
-
 
                 moveVector = targetVector; //이동할 위치벡터와 타겟벡터 같게해줘서 이동시키기
                 //애니메이션 키기
-                //animator.SetFloat("Walk", 0.0f);
                 //animator.SetFloat("Walk", 1.0f);
             }
 
@@ -251,10 +203,6 @@ public class PlayerMove : MonoBehaviour
                 if (nowVector != moveVector)
                 {
                     Vector3 a = nowVector - moveVector;
-
-                    //Debug.Log(a);
-                    //Debug.Log(targetVector);
-                    //Debug.Log(targetVector - a);
                     targetVector = targetVector - a;
                     nowVector = moveVector;
 
@@ -269,8 +217,6 @@ public class PlayerMove : MonoBehaviour
 
         if (moveBool == false  && lookObj == null)
         {
-            //화면 흔들림
-
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 SoundManger.instance.DontMoveSound();
@@ -284,19 +230,10 @@ public class PlayerMove : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
                     SoundManger.instance.DontMoveSound();
-
                 }
             }
         }
     }
-
-
-    public Sprite image;
-    public Sprite image_wood;
-
-
-
-
     void Obj_Action() //오브젝트와 상호작용
     {
         if (lookObj != null)
@@ -305,16 +242,6 @@ public class PlayerMove : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
-                    //L_Obj = lookObj;
-
-                    //스테이지 클리어 이거 왜있음?
-                    if (lookObj.GetComponent<ObjCode>().objStatus == 0)
-                    {
-                        Debug.Log("스테이지 클리어");
-                    }
-
-
-
                     if (lookObj.GetComponent<ObjCode>().objStatus == 4) //저게 4이라면
                     {
                         if ((lookObj.GetComponent<ObjCode>().nowVector_Obj + (targetVector - nowVector)).x < 0 || (lookObj.GetComponent<ObjCode>().nowVector_Obj + (targetVector - nowVector)).z < 0)
@@ -372,11 +299,9 @@ public class PlayerMove : MonoBehaviour
                         //아이템을 획득하면 아이템슬롯으로 이동?
                         if (lookObj.GetComponent<ObjCode>().obj_State == 2) //저게 1이라면
                         {
-
                             Item _item = new Item();
-
                             _item.itemName = "철광석";
-                            _item.itemImage = image;
+                            _item.itemImage = imageIron;
                             _item.itemType = ItemType.Etc;
                             GameManager.instance.iron--; //철 카운트 내리기?
 
@@ -391,23 +316,19 @@ public class PlayerMove : MonoBehaviour
                                     if (Inventory.instance.items[i].itemName == _item.itemName)
                                     {
                                         Inventory.instance.items[i].num++;
-                                        //Debug.Log("break");
                                         break;
                                     }
                                     else if (Inventory.instance.items[i].itemName != _item.itemName)
                                     {
                                         if (i < Inventory.instance.items.Count - 1)
                                         {
-                                            //Debug.Log("continue");
                                             continue;
                                         }
                                     }
 
                                     Inventory.instance.items.Add(_item);
-
                                 }
                             }
-
 
                             SoundManger.instance.DestroySound();
                             actionPoint -= lookObj.GetComponent<ObjCode>().obj_Ack;
@@ -418,9 +339,8 @@ public class PlayerMove : MonoBehaviour
                         else if (lookObj.GetComponent<ObjCode>().obj_State == 1) //저게 2이라면
                         {
                             Item _item = new Item();
-
                             _item.itemName = "나무";
-                            _item.itemImage = image_wood;
+                            _item.itemImage = imageWood;
                             _item.itemType = ItemType.Etc;
 
                             if (Inventory.instance.items.Count < Inventory.instance.SlotCnt)
@@ -431,7 +351,6 @@ public class PlayerMove : MonoBehaviour
                                 }
                                 for (int i = 0; i < Inventory.instance.items.Count; i++)
                                 {
-
                                     if (Inventory.instance.items[i].itemName == _item.itemName)
                                     {
                                         Inventory.instance.items[i].num++;
@@ -446,21 +365,16 @@ public class PlayerMove : MonoBehaviour
                                             continue;
                                         }
                                     }
-
                                     Inventory.instance.items.Add(_item);
-
                                 }
                             }
 
                             SoundManger.instance.DestroySound();
-
                             actionPoint -= lookObj.GetComponent<ObjCode>().obj_Ack;
                             Instantiate(pWood, lookObj.gameObject.transform.position, pWood.transform.rotation);
                             Destroy(lookObj.gameObject);
                             return;
                         }
-
-
                     }               //제거 가능한거
                     else if (lookObj.GetComponent<ObjCode>().objStatus == 6)
                     {
@@ -475,7 +389,6 @@ public class PlayerMove : MonoBehaviour
                             SoundManger.instance.CoinSound();
 
                             nowCoinCount++; //코인 먹었다고 알려줌
-                                            //GameObject.Find("GameManager").GetComponent<MapManager>().nowCoinCount = nowCoinCount;
                             Destroy(lookObj.gameObject); //오브젝트 삭제
                         }
                     }               //안움직이는 오브젝트
@@ -492,7 +405,6 @@ public class PlayerMove : MonoBehaviour
             }
         }
     }
-
     void Find_Obj()  //오브젝트 찾기함수
     {
         for (int i = 0; i < allObj.Length; i++)
@@ -516,9 +428,8 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
-    public GameObject[] potal; 
-    public bool isPotal = false; //순간이동 했는지 안했는지 알려주기(지금 막 순간이동 했는지 안했는지 체크)
-    Vector3 nowPosition; //현재 캐릭터 포지션
+    
+    
 
     //포탈로 들어갔을 때
     void Potal()
@@ -537,38 +448,30 @@ public class PlayerMove : MonoBehaviour
                             //캐릭터의 위치를 바꾼다
                             nowPosition = new Vector3(potal[j].transform.position.x, transform.position.y, potal[j].transform.position.z);
                             transform.position = new Vector3(potal[j].transform.position.x, transform.position.y, potal[j].transform.position.z);
-
                             //움직임 관련 벡터들 초기화
-                            if (llll == 1)
+                            if (lookInt == 1)
                             {
                                 targetVector = new Vector3(transform.position.x, transform.position.y, transform.position.z + 1);
-                                moveVector = new Vector3(transform.position.x, transform.position.y, transform.position.z);
-                                nowVector = new Vector3(transform.position.x, transform.position.y, transform.position.z);
                             }
-                            else if (llll == 2)
+                            else if (lookInt == 2)
                             {
                                 targetVector = new Vector3(transform.position.x + 1, transform.position.y, transform.position.z);
-                                moveVector = new Vector3(transform.position.x, transform.position.y, transform.position.z);
-                                nowVector = new Vector3(transform.position.x, transform.position.y, transform.position.z);
                             }
-                            else if (llll == 3)
+                            else if (lookInt == 3)
                             {
                                 targetVector = new Vector3(transform.position.x - 1, transform.position.y, transform.position.z);
-                                moveVector = new Vector3(transform.position.x, transform.position.y, transform.position.z);
-                                nowVector = new Vector3(transform.position.x, transform.position.y, transform.position.z);
                             }
-                            else if (llll == 4)
+                            else if (lookInt == 4)
                             {
                                 targetVector = new Vector3(transform.position.x, transform.position.y, transform.position.z - 1);
-                                moveVector = new Vector3(transform.position.x, transform.position.y, transform.position.z);
-                                nowVector = new Vector3(transform.position.x, transform.position.y, transform.position.z);
                             }
                             else
                             {
                                 targetVector = new Vector3(transform.position.x + 1, transform.position.y, transform.position.z);
-                                moveVector = new Vector3(transform.position.x, transform.position.y, transform.position.z);
-                                nowVector = new Vector3(transform.position.x, transform.position.y, transform.position.z);
                             }
+
+                            moveVector = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+                            nowVector = new Vector3(transform.position.x, transform.position.y, transform.position.z);
 
                             //순간이동 했다고 알려줌
                             isPotal = true;
@@ -605,20 +508,14 @@ public class PlayerMove : MonoBehaviour
             if (GameManager.instance.IsPause == false)
             {
                 GameManager.instance.IsPause = true;
-
-                //여기가 문제다
-                //이거 시간 가져와야함
                 if (coinCount <= nowCoinCount)
                 {
                     _star++;
                 }
-
-
                 if (timer.GetComponent<Timer>().LimitTime <= LimitTimer)
                 {
                     _star++;
                 }
-
                 if (GameManager.instance.stageData.Stage[GameManager.instance.sceneNum] >= _star)
                 {
 
@@ -629,13 +526,8 @@ public class PlayerMove : MonoBehaviour
                 }
 
                 Time.timeScale = 0;
-                Debug.Log(Time.timeScale);
-
-                Debug.Log("클리어");
-                Debug.Log(nowCoinCount);
                 isEnd = true;
                 endUI.GetComponent<EndUI>().isClear = true;
-
 
                 SoundManger.instance.ClearSound();
 
@@ -677,11 +569,8 @@ public class PlayerMove : MonoBehaviour
     }
 
 
-    
-
     void FindUi()  //ui 찾는 함수
     {
-
         playerText = GameObject.FindWithTag("playerText").GetComponent<Text>();
         hpbar = GameObject.FindWithTag("hpbar");
     }
@@ -758,10 +647,6 @@ public class PlayerMove : MonoBehaviour
                                                 {
                                                     moveBool = false;
                                                     return;
-                                                }
-                                                else
-                                                {
-
                                                 }
                                             }
                                         }
@@ -841,12 +726,11 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
-    public Text playerText; //플레이어 행동력 text
+    
 
     void Player_Ui()
     {
         playerText.text = actionPoint.ToString();
         hpbar.GetComponent<HPbar>().hitPoint = actionPoint;
     }
-
 }

@@ -497,7 +497,6 @@ MonoBehaviour:
   coin_Count: 0
   coin: []
   nowCoinCount: 0
-  gameOver: {fileID: 0}
   stayBlook: {fileID: 0}
   lookBlook: {fileID: 0}
   moveBool: 0
@@ -509,17 +508,19 @@ MonoBehaviour:
   FAIL: {fileID: 0}
   NextButton: {fileID: 0}
   isAtk: 0
+  isEnd: 0
   hpbar: {fileID: 0}
   pRock: {fileID: 6904159089869824874, guid: 3e27dc90c57b3a749b653a19d66965ee, type: 3}
   pWood: {fileID: 6904159089869824874, guid: 8feb221600956be4e92337efe2e9d06c, type: 3}
   moveParticle: {fileID: 2670624909742308567, guid: a12589213e8bb2b4f8e14a5fe3ee7c72,
     type: 3}
-  image: {fileID: 21300000, guid: 7201d4b767fba05489a888ca41ef7174, type: 3}
-  image_wood: {fileID: 21300000, guid: 66f511337cc375b46a5c10b70a55bc60, type: 3}
+  moveParticleTrue: 1
+  objStateText: {fileID: 0}
+  playerText: {fileID: 0}
+  imageIron: {fileID: 21300000, guid: 7201d4b767fba05489a888ca41ef7174, type: 3}
+  imageWood: {fileID: 21300000, guid: 66f511337cc375b46a5c10b70a55bc60, type: 3}
   potal: []
   isPotal: 0
-  objText: {fileID: 0}
-  playerText: {fileID: 0}
 --- !u!1 &100024
 GameObject:
   m_ObjectHideFlags: 0

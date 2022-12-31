@@ -59,12 +59,10 @@ public class ObjCode : MonoBehaviour
     public void Change_Bool()
     {
         uiOpen = true;
-        //Debug.Log(this.gameObject.transform.position + "true");
     }
 
     public void Change_Bool2()
     {
         uiOpen = false;
-        //Debug.Log(this.gameObject.transform.position + "false");
     }
 }
