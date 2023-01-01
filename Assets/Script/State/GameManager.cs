@@ -14,14 +14,6 @@ public class GameManager : MonoBehaviour
 
     public StageData stageData;
 
-
-
-
-
-
-
-
-
     private void Awake()
     {
         if (instance != null)

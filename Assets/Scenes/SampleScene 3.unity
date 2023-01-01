@@ -6974,7 +6974,6 @@ GameObject:
   - component: {fileID: 963194228}
   - component: {fileID: 963194227}
   - component: {fileID: 963194226}
-  - component: {fileID: 963194230}
   - component: {fileID: 963194229}
   - component: {fileID: 963194231}
   m_Layer: 0
@@ -7061,30 +7060,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 336b034dabbfc084b8319fb4fc83746a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offsetX: 0
-  offsetY: 10
-  offsetZ: 0
   delayTime: 1
-  target: {fileID: 0}
-  Data: {fileID: 139246237}
-  max_X: 5
-  max_Z: 2
-  TVECTOR: {x: 0, y: 0, z: 0}
---- !u!114 &963194230
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 963194225}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15e5742cf05878b45884ee8c3557c6c0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 0
-  changemove: 0
-  UI: {fileID: 1329403376}
+  offset: {x: 0, y: 10, z: 0}
+  waitingTime: 1
+  speed: 0.6
 --- !u!114 &963194231
 MonoBehaviour:
   m_ObjectHideFlags: 0

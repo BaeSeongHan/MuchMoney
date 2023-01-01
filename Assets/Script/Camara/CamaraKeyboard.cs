@@ -4,12 +4,7 @@ using UnityEngine;
 
 public class CamaraKeyboard : MonoBehaviour
 {
-    float m_fSpeed = 3.0f;
-
-    void Start()
-    {
-
-    }
+    [SerializeField] private float m_fSpeed = 10.0f;
 
     void Update()
     {
