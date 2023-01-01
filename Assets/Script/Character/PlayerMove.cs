@@ -19,8 +19,8 @@ public class PlayerMove : MonoBehaviour
     public GameObject[] allObj; //모든오브젝트 넣을 배열
     //------------------------------------------------------
     public int actionPoint; //행동력
-    public int coinCount; //코인 먹어야 하는 수 -> 바꿔야함
     public int minActionPoint; //최소 보유 행동력
+    public int coinCount; //코인 먹어야 하는 수 -> 바꿔야함
     public int LimitTimer;
     public GameObject timer; //시간 오브젝트 가져올거
     public int coin_Count; //스테이지에 있는 코인 수
@@ -131,40 +131,35 @@ public class PlayerMove : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.UpArrow)) //위
             {
-                SoundManger.instance.TurnSound();
+                GameManager.instance.soundManager.EffectsSound(11);
                 StopAllCoroutines();
                 StartCoroutine(Rotate(-90));
                 lookInt = 1;
-                targetVector = new Vector3(transform.position.x, transform.position.y, transform.position.z + 1);
+                targetVector = transform.position + Vector3.forward;
             }
-
-            if (Input.GetKeyDown(KeyCode.RightArrow)) //오른쪽
+            else if (Input.GetKeyDown(KeyCode.RightArrow)) //오른쪽
             {
-                SoundManger.instance.TurnSound();
+                GameManager.instance.soundManager.EffectsSound(11);
                 StopAllCoroutines();
                 StartCoroutine(Rotate(0));
                 lookInt = 2;
-                targetVector = new Vector3(transform.position.x + 1, transform.position.y, transform.position.z);
+                targetVector = transform.position + Vector3.right;
             }
-
-
-            if (Input.GetKeyDown(KeyCode.LeftArrow))  //왼쪽
+            else if(Input.GetKeyDown(KeyCode.LeftArrow))  //왼쪽
             {
-                SoundManger.instance.TurnSound();
+                GameManager.instance.soundManager.EffectsSound(11);
                 StopAllCoroutines();
                 StartCoroutine(Rotate(-180));
                 lookInt = 3;
-                targetVector = new Vector3(transform.position.x - 1, transform.position.y, transform.position.z);
+                targetVector = transform.position + Vector3.left;
             }
-
-
-            if (Input.GetKeyDown(KeyCode.DownArrow))    //아래
+            else if(Input.GetKeyDown(KeyCode.DownArrow))    //아래
             {
-                SoundManger.instance.TurnSound();
+                GameManager.instance.soundManager.EffectsSound(11);
                 StopAllCoroutines();
                 StartCoroutine(Rotate(90));
                 lookInt = 4;
-                targetVector = new Vector3(transform.position.x, transform.position.y, transform.position.z - 1);
+                targetVector = transform.position + Vector3.back;
             }
         }
     }
@@ -187,7 +182,7 @@ public class PlayerMove : MonoBehaviour
                 //파티클생성
                 if (moveParticleTrue)
                 {
-                    SoundManger.instance.MoveSound();
+                    GameManager.instance.soundManager.EffectsSound(0);
                     Instantiate(moveParticle, gameObject.transform.position, moveParticle.transform.rotation);
                     moveParticleTrue = false;
                 }
@@ -219,17 +214,16 @@ public class PlayerMove : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                SoundManger.instance.DontMoveSound();
-
+                GameManager.instance.soundManager.EffectsSound(1);
             }
         }
         else if (moveBool == false && lookObj != null)
         {
-            if (lookObj.GetComponent<ObjCode>().objStatus == 4)
+            if (lookObj.GetComponent<ObjCode>().objStatus == 4) //여기 수정 필요
             {
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
-                    SoundManger.instance.DontMoveSound();
+                    GameManager.instance.soundManager.EffectsSound(1);
                 }
             }
         }
@@ -283,7 +277,7 @@ public class PlayerMove : MonoBehaviour
                                             lookObj.GetComponent<ObjCode>().moveObj = true; //움직이라고 알려주기
                                             lookObj.GetComponent<ObjCode>().moveVector_Obj = lookObj.GetComponent<ObjCode>().nowVector_Obj + (targetVector - nowVector);
 
-                                            SoundManger.instance.MoveObjSound();
+                                            GameManager.instance.soundManager.EffectsSound(8);
                                             actionPoint -= lookObj.GetComponent<ObjCode>().obj_Ack;
                                             break;
                                         }
@@ -330,7 +324,7 @@ public class PlayerMove : MonoBehaviour
                                 }
                             }
 
-                            SoundManger.instance.DestroySound();
+                            GameManager.instance.soundManager.EffectsSound(7);
                             actionPoint -= lookObj.GetComponent<ObjCode>().obj_Ack;
                             Instantiate(pRock, lookObj.gameObject.transform.position, pRock.transform.rotation);
                             Destroy(lookObj.gameObject);
@@ -369,7 +363,7 @@ public class PlayerMove : MonoBehaviour
                                 }
                             }
 
-                            SoundManger.instance.DestroySound();
+                            GameManager.instance.soundManager.EffectsSound(7);
                             actionPoint -= lookObj.GetComponent<ObjCode>().obj_Ack;
                             Instantiate(pWood, lookObj.gameObject.transform.position, pWood.transform.rotation);
                             Destroy(lookObj.gameObject);
@@ -385,9 +379,7 @@ public class PlayerMove : MonoBehaviour
                     {
                         if (lookObj.GetComponent<ObjCode>().obj_State == 8) //코인이면
                         {
-
-                            SoundManger.instance.CoinSound();
-
+                            GameManager.instance.soundManager.EffectsSound(4);
                             nowCoinCount++; //코인 먹었다고 알려줌
                             Destroy(lookObj.gameObject); //오브젝트 삭제
                         }
@@ -476,7 +468,7 @@ public class PlayerMove : MonoBehaviour
                             //순간이동 했다고 알려줌
                             isPotal = true;
 
-                            SoundManger.instance.PotalSound();
+                            GameManager.instance.soundManager.EffectsSound(10);
                         }
                     } 
                 }
@@ -508,7 +500,7 @@ public class PlayerMove : MonoBehaviour
             if (GameManager.instance.IsPause == false)
             {
                 GameManager.instance.IsPause = true;
-                if (coinCount <= nowCoinCount)
+                if (actionPoint >= minActionPoint)
                 {
                     _star++;
                 }
@@ -529,7 +521,7 @@ public class PlayerMove : MonoBehaviour
                 isEnd = true;
                 endUI.GetComponent<EndUI>().isClear = true;
 
-                SoundManger.instance.ClearSound();
+                GameManager.instance.soundManager.EffectsSound(2);
 
                 //UI 띄우기
                 endUI.SetActive(true);
@@ -548,15 +540,13 @@ public class PlayerMove : MonoBehaviour
             {
                 GameManager.instance.IsPause = true;
                 Time.timeScale = 0;
-                Debug.Log(Time.timeScale);
-
 
                 endUI.GetComponent<EndUI>().isClear = false;
 
                 //스테이지 클리어 정보 알려주기
 
                 isEnd = true;
-                SoundManger.instance.FailSound();
+                GameManager.instance.soundManager.EffectsSound(3);
 
                 endUI.SetActive(true);
                 //스테이지 클리어 실패

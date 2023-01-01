@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 1611168471243238816}
   - component: {fileID: 1611168471246663040}
   - component: {fileID: 1611168471245532992}
-  - component: {fileID: 1611168472252977333}
   - component: {fileID: 4381567602253938662}
   - component: {fileID: 3003726928496566420}
   - component: {fileID: 5852281800209392454}
+  - component: {fileID: 7773215200581055412}
   m_Layer: 6
   m_Name: Coin
   m_TagString: aa
@@ -85,19 +85,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &1611168472252977333
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1611168471243338112}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3d1c710b96cf434f9d0cfd5d0cad307, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 100
 --- !u!64 &4381567602253938662
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -153,3 +140,16 @@ MonoBehaviour:
   monster_Speed: 0
   obj_Connection: 0
   obj_Connection_It: 0
+--- !u!114 &7773215200581055412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1611168471243338112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbfd75c99eba1004a8c43a1327937ea3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 100

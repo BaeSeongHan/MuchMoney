@@ -12,15 +12,14 @@ public class GameManager : MonoBehaviour
     public int iron = 0;
     public int scenStat = 0; //씬 상태 나타내기
 
-    public StageData stageData;
+    public StageData stageData; //->나중에 변경합시다.
+    public SoundManger soundManager; 
 
     private void Awake()
     {
         if (instance != null)
         {
-
             Destroy(gameObject);
-            //Debug.Log("삭제");
         }
 
         instance = this;

@@ -17,6 +17,7 @@ public class CamaraMove : MonoBehaviour
     [SerializeField] private Vector3 offset; //얼마많큼 target에서 떯어져 있을 건지
     [SerializeField] private int waitingTime; //마우스로 움직인 다음 돌아가기까지 기다리는 시간
     [SerializeField] private float speed; //돌아가는 속도
+    [SerializeField] private GameObject mixUI;
 
     private void Awake()
     {
@@ -31,7 +32,7 @@ public class CamaraMove : MonoBehaviour
             target = GameObject.FindWithTag("Player");
         }
 
-        if (GameManager.instance.IsPause == false)
+        if (GameManager.instance.IsPause == false && !mixUI.activeSelf)
         {
             BasicMove();
             MouseMove();
@@ -76,7 +77,6 @@ public class CamaraMove : MonoBehaviour
 
             if (timer > waitingTime)
             {
-                //Action
                 changeMove = true;
                 timer = 0;
             }

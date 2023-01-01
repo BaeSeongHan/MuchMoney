@@ -119,7 +119,7 @@ public class Monster_AI : MonoBehaviour
             //공격이펙트
             if (isAParticleTrue == false)
             {
-                SoundManger.instance.AttackSound();
+                GameManager.instance.soundManager.EffectsSound(6);
                 Instantiate(aParticle, target.transform.position, aParticle.transform.rotation);
                 isAParticleTrue = true;
             }
@@ -132,7 +132,7 @@ public class Monster_AI : MonoBehaviour
                     if (isDie == false && target.GetComponent<PlayerMove>().inventory.GetComponent<Inventory>().equipment_items[i].itemName == "칼" && isDie == false)
                     {
 
-                        SoundManger.instance.BlockSound();
+                        GameManager.instance.soundManager.EffectsSound(9);
                         Instantiate(sParticle, target.transform.position, sParticle.transform.rotation);
                         isSParticleTrue = true;
 
@@ -200,7 +200,7 @@ public class Monster_AI : MonoBehaviour
         //여기에 부서지는 이펙트
         if (isMParticleTrue == false)
         {
-            SoundManger.instance.DestroySound();
+            GameManager.instance.soundManager.EffectsSound(7);
             Instantiate(mParticle, gameObject.transform.position, mParticle.transform.rotation);
             isMParticleTrue = true;
         }

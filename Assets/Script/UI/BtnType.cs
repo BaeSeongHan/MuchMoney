@@ -88,7 +88,7 @@ public class BtnType : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        SoundManger.instance.MouseOnSound();
+        GameManager.instance.soundManager.EffectsSound(12);
         buttonScale.localScale = defaultScale * 1.1f;
     }
 

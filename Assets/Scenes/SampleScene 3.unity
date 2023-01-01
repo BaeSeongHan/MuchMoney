@@ -1576,11 +1576,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb2f1d5fc9d2f0149a64b9c908f926b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentType: 6
   buttonScale: {fileID: 219030754}
-  mainGroup: {fileID: 0}
-  optionGroup: {fileID: 0}
-  stageGroup: {fileID: 0}
+  currentType: 6
 --- !u!114 &219030756
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5242,11 +5239,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb2f1d5fc9d2f0149a64b9c908f926b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentType: 0
   buttonScale: {fileID: 704455553}
-  mainGroup: {fileID: 0}
-  optionGroup: {fileID: 0}
-  stageGroup: {fileID: 0}
+  currentType: 0
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -6032,11 +6026,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb2f1d5fc9d2f0149a64b9c908f926b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentType: 6
   buttonScale: {fileID: 789502493}
-  mainGroup: {fileID: 0}
-  optionGroup: {fileID: 0}
-  stageGroup: {fileID: 0}
+  currentType: 6
 --- !u!1 &800725487 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1297068660229674631, guid: 85e4d50659af5a647812b07dcd2a4438,
@@ -7064,6 +7055,7 @@ MonoBehaviour:
   offset: {x: 0, y: 10, z: 0}
   waitingTime: 1
   speed: 0.6
+  mixUI: {fileID: 1329403376}
 --- !u!114 &963194231
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7677,11 +7669,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb2f1d5fc9d2f0149a64b9c908f926b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentType: 0
   buttonScale: {fileID: 1121879768}
-  mainGroup: {fileID: 0}
-  optionGroup: {fileID: 0}
-  stageGroup: {fileID: 0}
+  currentType: 0
 --- !u!114 &1121879770
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9768,11 +9757,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb2f1d5fc9d2f0149a64b9c908f926b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentType: 6
   buttonScale: {fileID: 1417296859}
-  mainGroup: {fileID: 0}
-  optionGroup: {fileID: 0}
-  stageGroup: {fileID: 0}
+  currentType: 6
 --- !u!114 &1417296861
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11522,11 +11508,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb2f1d5fc9d2f0149a64b9c908f926b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentType: 1
   buttonScale: {fileID: 1610586350}
-  mainGroup: {fileID: 0}
-  optionGroup: {fileID: 0}
-  stageGroup: {fileID: 0}
+  currentType: 1
 --- !u!1001 &1614262315
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11653,6 +11636,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: HealthGlobe
+      objectReference: {fileID: 0}
+    - target: {fileID: 7370814952545664183, guid: fa6e50270af42cf47847a0e5293934cb,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7370814952545664183, guid: fa6e50270af42cf47847a0e5293934cb,
         type: 3}
@@ -14732,6 +14720,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e94db13cafd026d45adb5cdfc9c37849, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GroundObj:
+  - {fileID: 4562075604489022, guid: 1b8fbee291cdc1046a281cb2b3b51bf7, type: 3}
+  - {fileID: 4115408997890500, guid: ff78edb367a079b4a8f8ae2d128c581f, type: 3}
+  - {fileID: 4562075604489022, guid: 1b8fbee291cdc1046a281cb2b3b51bf7, type: 3}
+  PrefabObj:
+  - {fileID: 414194, guid: 61c514000f4738f4ca05258453cb351e, type: 3}
+  - {fileID: 536081751240025794, guid: 9f4d5abacff6de046bdfc3e336ee2f21, type: 3}
+  - {fileID: 4058858019779054, guid: 6f360d966d3303542b0bbc78a89a8cd1, type: 3}
+  - {fileID: 8862802124952149798, guid: 0e197985f3bdbb045a378acf8ff8c693, type: 3}
+  - {fileID: 8110662226393690704, guid: aba414f48a95377409ca6ebeffbebf71, type: 3}
+  - {fileID: 4579623904907906, guid: 19c412f8f5af8fa4dbe5adbf58d317e6, type: 3}
+  - {fileID: 9210432721097524691, guid: 0fc5d031f945c45418ee4d0380619476, type: 3}
+  - {fileID: 1611168471243238816, guid: 69ad7fe35eb76ca4292a4aeec03368cb, type: 3}
+  - {fileID: 4621711826311896518, guid: 19017b679d6eaf64fa7fa299df1b3ce9, type: 3}
+  - {fileID: 8968573899751210205, guid: f39f3146c6b192a49a9b5a03e0fef2e2, type: 3}
   blockPrefab: {fileID: 4562075604489022, guid: 1b8fbee291cdc1046a281cb2b3b51bf7,
     type: 3}
   wPrefab: {fileID: 4115408997890500, guid: ff78edb367a079b4a8f8ae2d128c581f, type: 3}
@@ -14740,9 +14743,9 @@ MonoBehaviour:
     type: 3}
   objPrefab_Button: {fileID: 4058858019779054, guid: 6f360d966d3303542b0bbc78a89a8cd1,
     type: 3}
-  objPrefab_Monster: {fileID: 8110662226393690704, guid: aba414f48a95377409ca6ebeffbebf71,
-    type: 3}
   objPrefab_Wall: {fileID: 8862802124952149798, guid: 0e197985f3bdbb045a378acf8ff8c693,
+    type: 3}
+  objPrefab_Monster: {fileID: 8110662226393690704, guid: aba414f48a95377409ca6ebeffbebf71,
     type: 3}
   objPrefab_Goal: {fileID: 4579623904907906, guid: 19c412f8f5af8fa4dbe5adbf58d317e6,
     type: 3}
@@ -14757,14 +14760,9 @@ MonoBehaviour:
   mapSize: {x: 8, y: 4}
   Data: {fileID: 139246239}
   actionBar: {fileID: 1614262316}
-  actionPoint: 20
   minActionPoint: 0
   limttime: 0
   coin_Count: 0
-  b_obj:
-    button:
-    - wall_Pos_C:
-      - wall_Pos: 0100000004000000
 --- !u!1 &2076841190
 GameObject:
   m_ObjectHideFlags: 0

@@ -78,7 +78,7 @@ public class Obj : MonoBehaviour
                 isTrue = true;
                 if (isSoundTrue == false)
                 {
-                    SoundManger.instance.ButtonSound();
+                    GameManager.instance.soundManager.EffectsSound(5);
                     isSoundTrue = true;
                 }
                
@@ -92,7 +92,7 @@ public class Obj : MonoBehaviour
 
                     if (isSoundTrue == false)
                     {
-                        SoundManger.instance.ButtonSound();
+                        GameManager.instance.soundManager.EffectsSound(5);
                         isSoundTrue = true;
                     }
 

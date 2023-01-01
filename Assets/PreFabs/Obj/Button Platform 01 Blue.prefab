@@ -111,7 +111,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   monster: []
+  moveBlock: []
+  All: []
   isTrue: 0
+  isSoundTrue: 0
   nowMonster: 0
 --- !u!114 &3764308504375357621
 MonoBehaviour:

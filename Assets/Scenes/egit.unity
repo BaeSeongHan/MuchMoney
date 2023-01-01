@@ -11334,6 +11334,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00a76ad2cc1ae394d868d9c7fbe8ade2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_fSpeed: 10
 --- !u!114 &1717919723
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13638,9 +13639,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 2005730184}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd04cc80b418dda42ba7d8446d06f881, type: 3}
+  m_Script: {fileID: 11500000, guid: fb2f1d5fc9d2f0149a64b9c908f926b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buttonScale: {fileID: 2005730185}
+  currentType: 7
 --- !u!114 &2005730187
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13686,8 +13689,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2005730186}
-        m_TargetAssemblyTypeName: changMain, Assembly-CSharp
-        m_MethodName: afd
+        m_TargetAssemblyTypeName: StageUI, Assembly-CSharp
+        m_MethodName: OnStageBtnClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

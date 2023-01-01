@@ -13,10 +13,6 @@ public class mission : MonoBehaviour
     public Text missonAction; //미션 1 넣을 text 최소hp
     public Text time_Text; //미션 2 넣을 text 시간
 
-
-
-
-
     public GameObject M; //MapData 넣을 곳
     public GameObject C; //캐릭터 가져와
 
